@@ -8,6 +8,7 @@ target/
 .env
 .env.local
 .env.*.local
+infrastructure/.env
 
 ### STS ###
 .apt_generated
