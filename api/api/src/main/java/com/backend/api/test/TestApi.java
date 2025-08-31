@@ -5,6 +5,7 @@ import java.time.Instant;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.backend.api.redis.RedisPublisher;
 import com.backend.api.websocket.StreamPublisher;
 
 @RestController
@@ -12,9 +13,11 @@ import com.backend.api.websocket.StreamPublisher;
 public class TestApi {
 
     private final StreamPublisher publisher;
+    private final RedisPublisher redisPublisher;
 
-    public TestApi(StreamPublisher publisher) {
+    public TestApi(StreamPublisher publisher, RedisPublisher redisPublisher) {
         this.publisher = publisher;
+        this.redisPublisher = redisPublisher;
     }
 
     @GetMapping
@@ -26,7 +29,7 @@ public class TestApi {
     public ResponseEntity<Void> sendTest() {
         StreamPublisher.DecisionEvent e = new StreamPublisher.DecisionEvent("123", "6011", 1500, "DECLINE",
                 Instant.now());
-        publisher.send(e);
+        redisPublisher.publishDecision(e);
         return ResponseEntity.accepted().build();
     }
 }

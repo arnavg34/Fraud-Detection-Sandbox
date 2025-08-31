@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.api.services.GeneratorService;
 
 @RestController
-@RequestMapping("/api/simulate")
+@RequestMapping("/api/sim")
 public class SimulateGenerationController {
     private final GeneratorService generatorService;
 
